@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Body,
-  Post,
-  UseInterceptors,
-  UnauthorizedException,
-  BadGatewayException,
-} from '@nestjs/common';
+import { Controller, Body, Post, UseInterceptors } from '@nestjs/common';
 import { AuthzService } from '@authz/authz';
 import { AuthAttemptInterceptor } from '../auth-attempt.interceptor';
 

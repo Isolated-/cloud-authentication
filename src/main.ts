@@ -14,7 +14,6 @@ async function bootstrap() {
 
   // security + compression + rate limit middleware
   app.use(helmet());
-  app.use(csurf());
   app.use(
     rateLimit({
       windowMs: 1 * 60 * 1000,

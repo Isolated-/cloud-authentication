@@ -22,10 +22,10 @@ export class AuthAttemptInterceptor implements NestInterceptor {
     return next.handle().pipe(
       tap(
         () => this.measure({ email, ip, agent, success: true }),
-        catchError(error => {
+        error => {
           this.measure({ email, ip, agent, success: false });
           throw new UnauthorizedException(error.message);
-        }),
+        },
       ),
     );
   }
@@ -33,8 +33,10 @@ export class AuthAttemptInterceptor implements NestInterceptor {
   private async measure({ email, ip, agent, success }) {
     const data = {
       measurement: 'auth_attempt',
-      tags: { email, ip, agent },
-      fields: { success },
+      tags: { email, ip, agent, successful: success ? 'yes' : 'no' },
+      fields: {
+        success,
+      },
     };
 
     this.service.createMeasurement([data]);
