@@ -10,6 +10,15 @@
       "compilerOptions": {
         "tsConfigPath": "libs/monitor/tsconfig.lib.json"
       }
+    },
+    "authz": {
+      "type": "library",
+      "root": "libs/authz",
+      "entryFile": "index",
+      "sourceRoot": "libs/authz/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/authz/tsconfig.lib.json"
+      }
     }
   },
   "compilerOptions": {

@@ -12,6 +12,8 @@
   },
   "moduleNameMapper": {
     "@monitor/monitor/(.*)": "<rootDir>/../libs/monitor/src/$1",
-    "@monitor/monitor": "<rootDir>/../libs/monitor/src"
+    "@monitor/monitor": "<rootDir>/../libs/monitor/src",
+    "@authz/authz/(.*)": "<rootDir>/../libs/authz/src/$1",
+    "@authz/authz": "<rootDir>/../libs/authz/src"
   }
 }

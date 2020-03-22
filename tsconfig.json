@@ -16,6 +16,12 @@
       ],
       "@monitor/monitor/*": [
         "libs/monitor/src/*"
+      ],
+      "@authz/authz": [
+        "libs/authz/src"
+      ],
+      "@authz/authz/*": [
+        "libs/authz/src/*"
       ]
     }
   },
