@@ -14,6 +14,8 @@
     "@monitor/monitor/(.*)": "<rootDir>/../libs/monitor/src/$1",
     "@monitor/monitor": "<rootDir>/../libs/monitor/src",
     "@authz/authz/(.*)": "<rootDir>/../libs/authz/src/$1",
-    "@authz/authz": "<rootDir>/../libs/authz/src"
+    "@authz/authz": "<rootDir>/../libs/authz/src",
+    "@influx/influx/(.*)": "<rootDir>/../libs/influx/src/$1",
+    "@influx/influx": "<rootDir>/../libs/influx/src"
   }
 }

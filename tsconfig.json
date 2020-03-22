@@ -22,6 +22,12 @@
       ],
       "@authz/authz/*": [
         "libs/authz/src/*"
+      ],
+      "@influx/influx": [
+        "libs/influx/src"
+      ],
+      "@influx/influx/*": [
+        "libs/influx/src/*"
       ]
     }
   },
