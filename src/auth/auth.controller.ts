@@ -8,7 +8,7 @@ import {
   BadGatewayException,
 } from '@nestjs/common';
 import { AuthzService } from '@authz/authz';
-import { AuthAttemptInterceptor } from 'src/auth-attempt.interceptor';
+import { AuthAttemptInterceptor } from '../auth-attempt.interceptor';
 
 @Controller('oauth2')
 export class AuthController {
@@ -17,6 +17,6 @@ export class AuthController {
   @Post('token')
   @UseInterceptors(AuthAttemptInterceptor)
   async accessToken(@Body() body) {
-    return this.auth.login(body.username, body.password);
+    return this.auth.login(body.email, body.password);
   }
 }
