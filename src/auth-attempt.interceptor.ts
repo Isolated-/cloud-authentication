@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { InfluxService } from '@influx/influx';
+import { Request } from 'express';
 
 @Injectable()
 export class AuthAttemptInterceptor implements NestInterceptor {
@@ -16,36 +17,37 @@ export class AuthAttemptInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const req = context.switchToHttp().getRequest();
 
-    // TODO: add collection of lat/lng using IP
-    const ip = req.connection.remoteAddress;
-    let email = undefined;
-
-    // TODO: handle client authentication
-    if (req.body && req.body.username) {
-      email = req.body.username;
-    }
-
-    let data = {
-      measurement: 'login_attempt',
-      tags: { email, ip },
-      fields: {},
-    };
-
-    let success = false;
+    const { email, ip, agent } = this._disectRequest(req);
 
     return next.handle().pipe(
-      tap(() => {
-        success = true;
-        data.fields = { success };
-        this.service.createMeasurement([data]);
-      }),
-      catchError(error => {
-        success = false;
-        data.fields = { success };
-        this.service.createMeasurement([data]);
-
-        throw new UnauthorizedException(error.message);
-      }),
+      tap(
+        () => this.measure({ email, ip, agent, success: true }),
+        catchError(error => {
+          this.measure({ email, ip, agent, success: false });
+          throw new UnauthorizedException(error.message);
+        }),
+      ),
     );
+  }
+
+  private async measure({ email, ip, agent, success }) {
+    const data = {
+      measurement: 'auth_attempt',
+      tags: { email, ip, agent },
+      fields: { success },
+    };
+
+    this.service.createMeasurement([data]);
+  }
+
+  private _disectRequest(request: Request) {
+    return {
+      ip: request.connection.remoteAddress,
+      email: request.body
+        ? request.body.email || request.body.username
+        : 'not present',
+      agent: request.headers['user-agent'],
+      status: request.statusCode,
+    };
   }
 }
