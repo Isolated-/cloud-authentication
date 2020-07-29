@@ -26,7 +26,7 @@
     "@nestjs/passport": "^7.0.0",
     "@nestjs/platform-express": "^6.10.14",
     "@willsoto/nestjs-prometheus": "^0.1.1",
-    "auth0": "^2.24.0",
+    "auth0": "^2.27.1",
     "csurf": "^1.11.0",
     "express-rate-limit": "^5.1.1",
     "helmet": "^3.21.3",
